@@ -328,7 +328,9 @@ class UniFormer(nn.Module):
 
 
 @register_model
-def uniformer_small(pretrained=True, **kwargs):
+def uniformer_small(pretrained=True, pretrained_cfg=None, **kwargs):
+    global layer_scale
+    layer_scale = False    
     model = UniFormer(
         depth=[3, 4, 8, 3],
         embed_dim=[64, 128, 320, 512], head_dim=64, mlp_ratio=4, qkv_bias=True,
@@ -338,7 +340,9 @@ def uniformer_small(pretrained=True, **kwargs):
 
 
 @register_model
-def uniformer_small_plus(pretrained=True, **kwargs):
+def uniformer_small_plus(pretrained=True, pretrained_cfg=None, **kwargs):
+    global layer_scale
+    layer_scale = False    
     model = UniFormer(
         depth=[3, 5, 9, 3], conv_stem=True,
         embed_dim=[64, 128, 320, 512], head_dim=32, mlp_ratio=4, qkv_bias=True,
@@ -348,7 +352,9 @@ def uniformer_small_plus(pretrained=True, **kwargs):
 
 
 @register_model
-def uniformer_small_plus_dim64(pretrained=True, **kwargs):
+def uniformer_small_plus_dim64(pretrained=True, pretrained_cfg=None, **kwargs):
+    global layer_scale
+    layer_scale = False    
     model = UniFormer(
         depth=[3, 5, 9, 3], conv_stem=True,
         embed_dim=[64, 128, 320, 512], head_dim=64, mlp_ratio=4, qkv_bias=True,
@@ -359,7 +365,9 @@ def uniformer_small_plus_dim64(pretrained=True, **kwargs):
 
 
 @register_model
-def uniformer_base(pretrained=True, **kwargs):
+def uniformer_base(pretrained=True, pretrained_cfg=None, **kwargs):
+    global layer_scale
+    layer_scale = False    
     model = UniFormer(
         depth=[5, 8, 20, 7],
         embed_dim=[64, 128, 320, 512], head_dim=64, mlp_ratio=4, qkv_bias=True,
@@ -369,7 +377,7 @@ def uniformer_base(pretrained=True, **kwargs):
 
 
 @register_model
-def uniformer_base_ls(pretrained=True, **kwargs):
+def uniformer_base_ls(pretrained=True, pretrained_cfg=None, **kwargs):
     global layer_scale
     layer_scale = True
     model = UniFormer(
