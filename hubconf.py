@@ -37,7 +37,8 @@ def _transform(resize=256, crop_size=224, mean=[0.485, 0.456, 0.406], std=[0.229
     
 def load_state_dict_from_gdrive(url, filename, hashid):    
     weights_file = gdown.cached_download(url, filename, md5=hashid)
-    state_dict = torch.load(weights_file)
+    checkpoint = torch.load(weights_file)
+    state_dict = checkpoint['model']
     return state_dict, weights_file
 
 # -------------------------------------
