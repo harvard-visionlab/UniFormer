@@ -178,7 +178,8 @@ def load_weights(model, url, hashid, filename, verbose=True):
     if verbose: 
         print(f"==> loading checkpoint: {Path(weights_file).name}")
     
-    missing_keys, unexpected_keys = model.load_state_dict(state_dict, strict=True)
+    # Have to use strict=False because some of the models have this extra "aux_head" in state_dict
+    missing_keys, unexpected_keys = model.load_state_dict(state_dict, strict=False)
     assert len(missing_keys)==0, f"Oops, missing keys: {missing_keys}"
     if len(unexpected_keys) > 0:
         assert unexpected_keys == ['aux_head.weight', 'aux_head.bias'], f"Oops, unexpected unexpected_keys: {unexpected_keys}"
