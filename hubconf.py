@@ -85,6 +85,18 @@ def uniformer_small_in1k(pretrained=True, verbose=True, **kwargs):
     if pretrained:
         model = load_weights(model, cfg['url'], cfg['md5'], cfg['filename'], verbose=verbose)
 
-    transform = _transform(input_size=_cfg[model_name]['input_size'])
+    transform = _transform(input_size=cfg['input_size'])
     
     return model, transform
+
+def uniformer_small_plus_in1k(pretrained=True, verbose=True, **kwargs):
+    model_name = inspect.stack()[0][3]
+    cfg = _cfg[model_name]
+    model = cls_models.__dict__[cfg['arch']](pretrained=False, **kwargs)
+    if pretrained:
+        model = load_weights(model, cfg['url'], cfg['md5'], cfg['filename'], verbose=verbose)
+
+    transform = _transform(input_size=cfg['input_size'])
+    
+    return model, transform
+
