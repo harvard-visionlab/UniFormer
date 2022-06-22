@@ -25,16 +25,17 @@ _cfg = {
     )
 }   
 
-def _transform(resize=256, crop_size=224, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]):
+def _transform(input_size=224, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]):
+    size = int((256 / 224) * input_size)
     transform = torchvision.transforms.Compose([
-        torchvision.transforms.Resize(resize),
-        torchvision.transforms.CenterCrop(crop_size),
+        torchvision.transforms.Resize(size),
+        torchvision.transforms.CenterCrop(input_size),
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Normalize(mean=mean, std=std)    
     ])
     
     return transform
-    
+ 
 def load_state_dict_from_gdrive(url, filename, hashid):    
     weights_file = gdown.cached_download(url, filename, md5=hashid)
     checkpoint = torch.load(weights_file)
@@ -59,6 +60,6 @@ def uniformer_small_in1k(pretrained=True, verbose=True, **kwargs):
         model.weights_file = weights_file
         if verbose: print(f"==> state loaded: {msg}")
 
-    transform = _transform()
+    transform = _transform(input_size=224)
     
     return model, transform
